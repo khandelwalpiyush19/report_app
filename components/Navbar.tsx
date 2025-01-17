@@ -56,17 +56,17 @@ export default function Navbar() {
                 How It Works
               </Link>
               <Link
-                href="/resources"
+                href="/volunteer"
                 className="text-sm text-zinc-400 hover:text-white transition-colors"
               >
-                Resources
+                Be a volunteer
               </Link>
             </div>
 
             {/* Emergency Button */}
             <div className="flex items-center space-x-4">
               <Link
-                href="/contact"
+                href="/"
                 className="hidden md:block text-sm text-zinc-400 hover:text-white transition-colors"
               >
                 Contact
