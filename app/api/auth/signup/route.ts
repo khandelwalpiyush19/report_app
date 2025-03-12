@@ -38,7 +38,7 @@ export async function POST(request: Request) {
         role: role as "ADMIN" | "MODERATOR" | "USER",
       },
     });
-    const { password: _password, ...userWithoutPassword } = user;
+    const { password: userPassword, ...userWithoutPassword } = user;
     return NextResponse.json(userWithoutPassword, { status: 201 });
   } catch (error: unknown) {
     console.error("Signup error:", error);
