@@ -15,9 +15,15 @@ const REPORT_TYPES = [
 
 type ReportType = "EMERGENCY" | "NON_EMERGENCY";
 
-interface ReportFormProps {
-  onComplete: (data: any) => void;
+interface ReportData {
+  name: string;
+  reportContent: string;
 }
+
+interface ReportFormProps {
+  onComplete: (data: ReportData) => void;
+}
+
 
 export function ReportForm({ onComplete }: ReportFormProps) {
   const [formData, setFormData] = useState({
