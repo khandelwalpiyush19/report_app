@@ -21,7 +21,7 @@ export function ReportTracker() {
   const [reportDetails, setReportDetails] = useState<ReportDetails | null>(
     null
   );
-  const router = useRouter();
+  // const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,6 +43,7 @@ export function ReportTracker() {
       const data = await response.json();
       setReportDetails(data);
     } catch (err) {
+      console.log(err)
       setError("Unable to find report. Please check the ID and try again.");
     } finally {
       setLoading(false);
