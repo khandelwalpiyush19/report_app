@@ -13,7 +13,6 @@ interface ReportDetails {
   description: string;
   location: string;
 }
-
 export function ReportTracker() {
   const [reportId, setReportId] = useState("");
   const [error, setError] = useState("");
