@@ -50,29 +50,34 @@ export async function GET(req: Request) {
     ]);
 
     return NextResponse.json(reports);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Failed to fetch reports:", error);
 
     // More specific error messages
-    if (error.code === "P1001") {
-      return NextResponse.json(
-        { error: "Cannot connect to database. Please try again later." },
-        { status: 503 }
-      );
-    }
+    if (typeof error === "object" && error !== null && "code" in error) {
+        const errorCode = (error as { code: string }).code;
 
-    if (error.code === "P2024") {
-      return NextResponse.json(
-        { error: "Database connection timeout. Please try again." },
-        { status: 504 }
-      );
+        if (errorCode === "P1001") {
+            return NextResponse.json(
+                { error: "Cannot connect to database. Please try again later." },
+                { status: 503 }
+            );
+        }
+
+        if (errorCode === "P2024") {
+            return NextResponse.json(
+                { error: "Database connection timeout. Please try again." },
+                { status: 504 }
+            );
+        }
     }
 
     return NextResponse.json(
-      { error: "Failed to fetch reports" },
-      { status: 500 }
+        { error: "Failed to fetch reports" },
+        { status: 500 }
     );
-  } finally {
+}
+ finally {
     // Optional: Disconnect for serverless environments
     if (process.env.VERCEL) {
       await prisma.$disconnect();
