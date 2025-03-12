@@ -1,5 +1,32 @@
+interface Timestamps {
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface Timeline {
+  event: string;
+  date: string;
+}
+
+interface Analysis {
+  department: string;
+  // Add other properties as needed
+}
+
+interface Report {
+  reportId: string;
+  name: string;
+  status: string;
+  analysis: Analysis; // Update to use the Analysis interface
+  incidentType: string;
+  timestamp: Timestamps;
+  timeline: Timeline[];
+  priority: string;
+  department: string;
+}
+
 interface ReportStatusProps {
-  report: any;
+  report: Report;
 }
 
 export function ReportStatus({ report }: ReportStatusProps) {
@@ -41,12 +68,12 @@ export function ReportStatus({ report }: ReportStatusProps) {
         <div>
           <p className="text-sm text-zinc-400">Submitted On</p>
           <p className="text-sm text-white mt-1">
-            {new Date(report.timestamp).toLocaleDateString()}
+            {new Date(report.timestamp.createdAt).toLocaleDateString()}
           </p>
         </div>
         <div>
           <p className="text-sm text-zinc-400">Priority Level</p>
-          <p className="text-sm text-white mt-1">{report.analysis?.priority}</p>
+          <p className="text-sm text-white mt-1">{report.analysis?.department}</p>
         </div>
         <div>
           <p className="text-sm text-zinc-400">Assigned Department</p>
