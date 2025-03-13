@@ -1,9 +1,12 @@
-
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
+
+console.log("Starting NextAuth configuration...");
+console.log("Using PrismaAdapter:", PrismaAdapter);
+console.log("Prisma instance:", prisma);
 
 const handler = NextAuth({
   // @ts-ignore
@@ -16,6 +19,7 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
+        console.log("Authorizing user...");
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Please enter an email and password");
         }
@@ -70,4 +74,5 @@ const handler = NextAuth({
   },
 });
 
+console.log("NextAuth configuration completed.");
 export { handler as GET, handler as POST };
